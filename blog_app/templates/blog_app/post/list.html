@@ -1,4 +1,5 @@
 {% extends "blog_app/base.html" %}
+{% load blog_tags %}
 
 {% block title %}My Blog{% endblock %}
 
@@ -23,7 +24,10 @@
 <p>
   Published {{ post.publish }} by {{ post.author }}
 </p>
+{% comment %}
 {{ post.body|truncatewords:30|linebreaks }}
+{% endcomment %}
+{{ post.body|markdown|truncatewords_html:30 }}
 {% endfor %}
 {% include "pagination.html" with page=posts %}
 {% endblock %}
